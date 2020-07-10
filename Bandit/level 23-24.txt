@@ -1,0 +1,50 @@
+Level Goal
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+NOTE: This level requires you to create your own first shell-script. This is a very big step and you should be proud of yourself when you beat this level!
+NOTE 2: Keep in mind that your shell script is removed once executed, so you may want to keep a copy around…
+
+bandit23:~$ cd /etc/cron.d
+bandit23:/etc/cron.d$ ls -l
+total 92
+-r--r----- 1 root root  46 Nov 14  2014 behemoth4_cleanup
+-rw-r--r-- 1 root root 355 May 25  2013 cron-apt
+-rw-r--r-- 1 root root  61 Nov 14  2014 cronjob_bandit22
+-rw-r--r-- 1 root root  62 Nov 14  2014 cronjob_bandit23
+-rw-r--r-- 1 root root  61 May  3  2015 cronjob_bandit24
+-rw-r--r-- 1 root root  62 May  3  2015 cronjob_bandit24_root
+-r--r----- 1 root root  47 Nov 14  2014 leviathan5_cleanup
+-rw------- 1 root root 233 Nov 14  2014 manpage3_resetpw_job
+-rw-r--r-- 1 root root  51 Nov 14  2014 melinda-stats
+-rw-r--r-- 1 root root  54 Jun 25  2016 natas-session-toucher
+-rw-r--r-- 1 root root  49 Jun 25  2016 natas-stats
+-r--r----- 1 root root  44 Jun 25  2016 natas25_cleanup
+-r--r----- 1 root root  47 Aug  3  2015 natas25_cleanup~
+-r--r----- 1 root root  47 Jun 25  2016 natas26_cleanup
+-r--r----- 1 root root  43 Jun 25  2016 natas27_cleanup
+-rw-r--r-- 1 root root 510 Oct 29  2014 php5
+-rw-r--r-- 1 root root  63 Jul  8  2015 semtex0-32
+-rw-r--r-- 1 root root  63 Jul  8  2015 semtex0-64
+-rw-r--r-- 1 root root  64 Jul  8  2015 semtex0-ppc
+-rw-r--r-- 1 root root  35 Nov 14  2014 semtex5
+-rw-r--r-- 1 root root 396 Nov 10  2013 sysstat
+-rw-r--r-- 1 root root  29 Nov 14  2014 vortex0
+-rw-r--r-- 1 root root  30 Nov 14  2014 vortex20
+bandit23:/etc/cron.d$ cat cronjob_bandit24
+* * * * * bandit24 /usr/bin/cronjob_bandit24.sh &> /dev/null
+bandit23:/etc/cron.d$ cat cronjob_bandit24_root
+* * * * * root /usr/bin/cronjob_bandit24_root.sh &> /dev/null
+bandit23:/etc/cron.d$ cat /usr/bin/cronjob_bandit24.sh
+#!/bin/bash
+myname=$(whoami)
+cd /var/spool/$myname
+echo "Executing and deleting all scripts in /var/spool/$myname:"
+for i in * .*;
+do
+    if [ "$i" != "." -a "$i" != ".." ];
+    then
+ echo "Handling $i"
+ timeout -s 9 60 "./$i"
+ rm -f "./$i"
+    fi
+done

@@ -1,0 +1,11 @@
+Level Goal
+
+The password for the next level is stored in a file called spaces in this filename located in the home directory
+
+
+
+bandit2:~$ ls
+spaces in this filename
+bandit2:~$ cat spaces\ in\ this\ filename
+UmHadQclWmgdLOKQ3YNgjWxGoRMb5luK
+bandit2:~$

